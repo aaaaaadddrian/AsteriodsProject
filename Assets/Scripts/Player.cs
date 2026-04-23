@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -18,17 +19,17 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        _thrusting = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+        _thrusting = Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed;
 
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)){
+        if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed){
             _turnDirection = 1.0f;
-        }else if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))){
+        }else if ((Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)){
             _turnDirection = -1.0f;
         } else{
             _turnDirection = 0.0f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        if (Keyboard.current.spaceKey.isPressed || Mouse.current.leftButton.isPressed)
         {
             Shoot();
         }
@@ -51,6 +52,17 @@ public class Player : MonoBehaviour
     {
         Bullet bullet = Instantiate(this.bulletPrefab, this.transform.position, this.transform.rotation);
         bullet.project(this.transform.up);
+    }
+
+    private void oncollision(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Asteroid")
+        {
+            _rb.linearVelocity = Vector2.zero;
+            _rb.angularVelocity = 0.0f;
+            this.gameObject.SetActive(false);
+
+        }
     }
     
 

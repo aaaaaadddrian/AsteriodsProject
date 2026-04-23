@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Bullet
+  - Asteroid
+  - Boundary
   layers:
   - Default
   - TransparentFX
@@ -13,8 +16,8 @@ TagManager:
   - UI
   - Player
   - Bullet
-  - 
-  - 
+  - Asteroid
+  - Boundary
   - 
   - 
   - 
