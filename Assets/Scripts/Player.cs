@@ -7,7 +7,8 @@ public class Player : MonoBehaviour
     public float thrustSpeed = 1.0f;
     public float turnSpeed = 1.0f;
     public Bullet bulletPrefab;
-    
+
+    private float shotTimer = 0.25f;
     private Rigidbody2D _rb;
     private bool _thrusting;
     private float _turnDirection;
@@ -29,10 +30,13 @@ public class Player : MonoBehaviour
             _turnDirection = 0.0f;
         }
 
-        if (Keyboard.current.spaceKey.isPressed || Mouse.current.leftButton.isPressed)
+        if (Keyboard.current.spaceKey.isPressed && shotTimer <= 0.0f || Mouse.current.leftButton.isPressed && shotTimer <= 0.0f)
         {
             Shoot();
+            shotTimer = 0.25f;
         }
+        
+        shotTimer -= Time.deltaTime;
     }
 
     private void FixedUpdate()
@@ -54,7 +58,7 @@ public class Player : MonoBehaviour
         bullet.project(this.transform.up);
     }
 
-    private void oncollision(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Asteroid")
         {

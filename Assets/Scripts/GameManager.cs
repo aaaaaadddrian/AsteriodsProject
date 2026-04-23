@@ -7,7 +7,10 @@ public class GameManager : MonoBehaviour
     public float respawnTime = 3.0f;
     public ParticleSystem explosion;
     public int score = 0;
-
+    
+    
+    //a main menu would be nice wouldnt it, add a ui adrian hrng
+    
     public void playerDies()
     {
         this.explosion.transform.position = this.player.transform.position;
@@ -17,20 +20,23 @@ public class GameManager : MonoBehaviour
         if (this.lives <= 0)
         {
             gameOver();
-        }
-        else
+        }else
         {
-            Invoke(nameof(respawn), respawnTime );
+            Invoke(nameof(respawn), respawnTime);
         }
        
     }
+    //my many lives keep living and not not living like they should
 
     public void asteroidDestroyed(Asteroid asteroid)
     {
         this.explosion.transform.position = asteroid.transform.position;
         this.explosion.Play(); 
+        
+        score += asteroid.score;
     }
-
+    
+    // why is death escaping me
     private void respawn()
     {
         this.player.transform.position = Vector3.zero;
@@ -47,6 +53,9 @@ public class GameManager : MonoBehaviour
 
     private void gameOver()
     {
-        
+        // fix this so that it is soemthing rather than nothing
+        Debug.Log("Game Over");
+        Debug.Log(score);
+        this.player.gameObject.SetActive(false);
     }
 }
