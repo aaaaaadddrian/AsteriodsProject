@@ -61,7 +61,8 @@ public class Player : MonoBehaviour
             _rb.linearVelocity = Vector2.zero;
             _rb.angularVelocity = 0.0f;
             this.gameObject.SetActive(false);
-
+            
+            FindAnyObjectByType<GameManager>().playerDies();
         }
     }
     

@@ -44,6 +44,7 @@ public class Asteroid : MonoBehaviour
                 createSplit();
                 createSplit();
             }
+            FindAnyObjectByType<GameManager>().asteroidDestroyed(this);
             Destroy(this.gameObject);
         }
     }
