@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -27,7 +28,7 @@ public class Asteroid : MonoBehaviour
         this.transform.eulerAngles = new Vector3(0, 0, Random.Range(0, 361));
         this.transform.localScale = Vector2.one * this.size;
         _rigidbody2D.mass = this.size;
-        this.score = 100 * (int) this.size;
+        this.score = Mathf.RoundToInt(100 * this.size);
     }
 
     public void setTrajectory(Vector2 trajectory)
@@ -39,7 +40,7 @@ public class Asteroid : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.CompareTag("Bullet"))
         {
             if ((this.size * 0.5f) >= this.minSize)
             {

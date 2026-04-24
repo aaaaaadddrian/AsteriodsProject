@@ -1,4 +1,7 @@
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,6 +10,7 @@ public class GameManager : MonoBehaviour
     public float respawnTime = 3.0f;
     public ParticleSystem explosion;
     public int score = 0;
+    public TextMeshProUGUI scoreText;
     
     
     //a main menu would be nice wouldnt it, add a ui adrian hrng
@@ -34,6 +38,7 @@ public class GameManager : MonoBehaviour
         this.explosion.Play(); 
         
         score += asteroid.score;
+        scoreText.text = "Score: " + score;
     }
     
     // why is death escaping me
@@ -53,9 +58,9 @@ public class GameManager : MonoBehaviour
 
     private void gameOver()
     {
-        // fix this so that it is soemthing rather than nothing
-        Debug.Log("Game Over");
-        Debug.Log(score);
-        this.player.gameObject.SetActive(false);
+       this.lives = 3;
+       this.score = 0;
+       
+       Invoke(nameof(respawn), respawnTime);
     }
 }
